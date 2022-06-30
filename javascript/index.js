@@ -6,6 +6,17 @@ while(entrada != "ESC"){
     entrada = prompt("Ingresar un número: ")
 }
 */
+let tienda = []
+
+let producto1 = {nombre: "producto1", precio: 5000}
+let producto2 = {nombre: "producto2", precio: 10000}
+let producto3 = {nombre: "producto3", precio: 15000}
+
+tienda.push(producto1, producto2, producto3)
+
+for(const productos of tienda){
+    console.log(`el precio de ${productos.nombre} es ${productos.precio}`)
+}
 
 let precioProdUno = 5000
 let precioProdDos = 10000
