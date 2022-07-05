@@ -1,141 +1,63 @@
-/*let entrada = prompt("Ingresar un número: ");
+let miCompra = []
+const productos = [
+    {id: 1, nombre: "producto1", precio: 5000},
+    {id: 2, nombre: "producto2", precio: 10000},
+    {id: 3, nombre: "producto3", precio: 15000}
+]
 
-while(entrada != "ESC"){
-    alert("El usuario ingresó el número: " + entrada);
-    
-    entrada = prompt("Ingresar un número: ")
-}
-*/
-let tienda = []
-
-let producto1 = {nombre: "producto1", precio: 5000}
-let producto2 = {nombre: "producto2", precio: 10000}
-let producto3 = {nombre: "producto3", precio: 15000}
-
-tienda.push(producto1, producto2, producto3)
-
-for(const productos of tienda){
-    console.log(`el precio de ${productos.nombre} es ${productos.precio}`)
+function mostrarMenuProductos(){
+    let idElegido = prompt("Escriba el id del producto elegido. Para salir ingrese (ESC): \n Producto 1: id=1 \n Producto 2: id=2 \n Producto 3: id=3 \n Una vez que haya finalizado escriba `TOTAL` para conocer el precio final de su compra \n")
+    return idElegido 
 }
 
-let precioProdUno = 5000
-let precioProdDos = 10000
-let precioProdTres = 15000
-
-function mostrarMenu(){
-    let opcion = prompt("Ingrese el numero de la opción elegida. Para salir ingrese (ESC): \n 1. Producto 1 \n 2. Producto 2 \n 3. Producto 3 \n")
-    return opcion
+function cantidadProductos(){
+    let cantidadProductos = prompt("Escriba el número de unidades que desea")
+    return cantidadProductos
 }
 
-function tresCuotas(precio){
-    let resultado = precio*1.10/3
-    return resultado
+function totalProducto1(){
+    let unidades = prompt("Escriba el numero de unidades de Producto1 que desea: ")
+    return miCompra.push(productos[0].precio*unidades)
 }
 
-function seisCuotas(precio){
-    let resultado = precio*1.20/6
-    return resultado
+function totalProducto2(){
+    let unidades = prompt("Escriba el numero de unidades de Producto2 que desea: ")
+    return miCompra.push(productos[1].precio*unidades)
 }
 
-function doceCuotas(precio){
-    let resultado = precio*1.40/12
-    return resultado
+function totalProducto3(){
+    let unidades = prompt("Escriba el numero de unidades de Producto1 que desea: ")
+    return miCompra.push(productos[2].precio*unidades)
 }
 
-function mostrarResultado(resultado){
-    alert("Se deberá abonar $"+ resultado +" por mes.")
+function totalProductos(){
+    let total = miCompra.reduce((acc, el) => acc + el, 0)
+    return total
 }
 
+function carritoCompras(){
+    let idElegido = mostrarMenuProductos()
 
-let cuotas = 0
-
-function financiacion(){
-    let opcionSeleccionada = mostrarMenu()
-
-    while(opcionSeleccionada !== "ESC" && opcionSeleccionada !== ""){
-        if (opcionSeleccionada == 1){
-            let cuotas = prompt("Desea pagar en 3, 6 o 12 cuotas? Ingrese el número:")
-
-            cuotas = parseInt(cuotas)
-
-            switch(cuotas){
-                case 3:
-                    let resultadoPrecio3 = tresCuotas(precioProdUno);
-                    mostrarResultado(resultadoPrecio3);
-                    break;
-                    
-                case 6:
-                    let resultadoPrecio6 = seisCuotas(precioProdUno);
-                    mostrarResultado(resultadoPrecio6);
-                    break;
-
-                case 12:
-                    let resultadoPrecio12 = doceCuotas(precioProdUno);
-                    mostrarResultado(resultadoPrecio12);
-                    break;
-                
-                default:
-                    alert("Opcion incorrecta");
-                    break;
-            }
+    while(idElegido !== "ESC" && idElegido !== ""){
+        if (idElegido == 1){
+            totalProducto1()
         }
-        else if (opcionSeleccionada == 2){
-            let cuotas = prompt("Desea pagar en 3, 6 o 12 cuotas? Ingrese el número:")
-
-            cuotas = parseInt(cuotas)
-
-            switch(cuotas){
-                case 3:
-                    let resultadoPrecio3 = tresCuotas(precioProdDos);
-                    mostrarResultado(resultadoPrecio3);
-                    break;
-                    
-                case 6:
-                    let resultadoPrecio6 = seisCuotas(precioProdDos);
-                    mostrarResultado(resultadoPrecio6);
-                    break;
-
-                case 12:
-                    let resultadoPrecio12 = doceCuotas(precioProdDos);
-                    mostrarResultado(resultadoPrecio12);
-                    break;
-                
-                default:
-                    alert("Opcion incorrecta");
-                    break;
-            }
+        else if(idElegido == 2){
+            totalProducto2()
         }
-        else if (opcionSeleccionada == 3){
-            let cuotas = prompt("Desea pagar en 3, 6 o 12 cuotas? Ingrese el número:")
-
-            cuotas = parseInt(cuotas)
-
-            switch(cuotas){
-                case 3:
-                    let resultadoPrecio3 = tresCuotas(precioProdTres);
-                    mostrarResultado(resultadoPrecio3);
-                    break;
-                    
-                case 6:
-                    let resultadoPrecio6 = seisCuotas(precioProdTres);
-                    mostrarResultado(resultadoPrecio6);
-                    break;
-
-                case 12:
-                    let resultadoPrecio12 = doceCuotas(precioProdTres);
-                    mostrarResultado(resultadoPrecio12);
-                    break;
-                
-                default:
-                    alert("Opcion incorrecta");
-                    break;
-            }
+        else if(idElegido == 3){
+            totalProducto3()
+        }
+        else if(idElegido == "TOTAL"){
+            let total = totalProductos()
+            alert("El total es $" + total)
+            break
         }
         else{
-            alert("Debe elegir la opción 1, 2 o 3")
+            alert("Debe elegir alguno de los id del listado")
         }
-        opcionSeleccionada = mostrarMenu()
+        idElegido = mostrarMenuProductos()
     }
 }
 
-financiacion()
+carritoCompras()
