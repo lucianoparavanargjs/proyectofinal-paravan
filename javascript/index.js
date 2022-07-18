@@ -53,12 +53,12 @@ function agregarAlCarrito(event) {
     event.preventDefault()
 
     if (idDatoFormulario == 1) {
-        let agregarId = productoACargar.push(1)
+        let agregarId = productoACargar.push(idDatoFormulario)
         let agregarNombre = productoACargar.push(catalogoProductos[0].nombre)
         let agregarPrecio = productoACargar.push(catalogoProductos[0].precioProducto)
         let agregarUnidades = productoACargar.push(unidadesFormulario)
         let total = productoACargar.push(agregarPrecio * agregarUnidades)
-        let productoARegistrar = new Producto(
+        let productoARegistrar = new ProductoCompra(
             agregarId,
             agregarNombre,
             agregarPrecio,
@@ -68,12 +68,12 @@ function agregarAlCarrito(event) {
         productoACargar.push(productoARegistrar)
     }
     else if (idDatoFormulario == 2) {
-        let agregarId = productoACargar.push(2)
+        let agregarId = productoACargar.push(idDatoFormulario)
         let agregarNombre = productoACargar.push(catalogoProductos[1].nombre)
         let agregarPrecio = productoACargar.push(catalogoProductos[1].precioProducto)
         let agregarUnidades = productoACargar.push(unidadesFormulario)
         let total = productoACargar.push(agregarPrecio * agregarUnidades)
-        let productoARegistrar = new Producto(
+        let productoARegistrar = new ProductoCompra(
             agregarId,
             agregarNombre,
             agregarPrecio,
@@ -83,12 +83,12 @@ function agregarAlCarrito(event) {
         productoACargar.push(productoARegistrar)
     }
     else if (idDatoFormulario == 3) {
-        let agregarId = productoACargar.push(3)
+        let agregarId = productoACargar.push(idDatoFormulario)
         let agregarNombre = productoACargar.push(catalogoProductos[2].nombre)
         let agregarPrecio = productoACargar.push(catalogoProductos[2].precioProducto)
         let agregarUnidades = productoACargar.push(unidadesFormulario)
         let total = productoACargar.push(agregarPrecio * agregarUnidades)
-        let productoARegistrar = new Producto(
+        let productoARegistrar = new ProductoCompra(
             agregarId,
             agregarNombre,
             agregarPrecio,
