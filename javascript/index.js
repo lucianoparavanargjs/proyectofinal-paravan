@@ -8,12 +8,11 @@ class Producto {
 }
 
 class ProductoCompra {
-    constructor(id, nombre, precioProducto, unidades, totalProducto){
-        this.id = id
-        this.nombre = nombre
-        this.precioProducto = precioProducto
-        this.unidades = unidades
-        this.totalProducto = precioProducto * unidades
+    constructor(idCompra, nombreCompra, precioProductoCompra, unidadesCompra){
+        this.idCompra = idCompra
+        this.nombreCompra = nombreCompra
+        this.precioProductoCompra = precioProductoCompra
+        this.unidadesCompra = unidadesCompra
     }
 }
 
@@ -40,11 +39,6 @@ function inicializarElementos() {
 let idDatoFormulario = document.getElementById("inputIdProducto").value
 let unidadesFormulario = document.getElementById("inputUnidades").value
 
-function inicializarElementos() {
-    tabla = document.getElementById("tabla-productos");
-    textoTotalCompra = document.querySelector("#totalCompra");
-}
-
 let formulario = document.getElementById("formulario")
 
 formulario.onsubmit = (event) => agregarAlCarrito(event)
@@ -53,47 +47,44 @@ function agregarAlCarrito(event) {
     event.preventDefault()
 
     if (idDatoFormulario == 1) {
-        let agregarId = productoACargar.push(idDatoFormulario)
-        let agregarNombre = productoACargar.push(catalogoProductos[0].nombre)
-        let agregarPrecio = productoACargar.push(catalogoProductos[0].precioProducto)
-        let agregarUnidades = productoACargar.push(unidadesFormulario)
-        let total = productoACargar.push(agregarPrecio * agregarUnidades)
+        let idCompra = productoACargar.push(idDatoFormulario)
+        let nombreCompra = productoACargar.push(catalogoProductos[0].nombre)
+        let precioProductoCompra = productoACargar.push(catalogoProductos[0].precioProducto)
+        let unidadesCompra = productoACargar.push(unidadesFormulario)
+        
         let productoARegistrar = new ProductoCompra(
-            agregarId,
-            agregarNombre,
-            agregarPrecio,
-            agregarUnidades,
-            total
+            idCompra,
+            nombreCompra,
+            precioProductoCompra,
+            unidadesCompra,
         )
         productoACargar.push(productoARegistrar)
     }
     else if (idDatoFormulario == 2) {
-        let agregarId = productoACargar.push(idDatoFormulario)
-        let agregarNombre = productoACargar.push(catalogoProductos[1].nombre)
-        let agregarPrecio = productoACargar.push(catalogoProductos[1].precioProducto)
-        let agregarUnidades = productoACargar.push(unidadesFormulario)
-        let total = productoACargar.push(agregarPrecio * agregarUnidades)
+        let idCompra = productoACargar.push(idDatoFormulario)
+        let nombreCompra = productoACargar.push(catalogoProductos[1].nombre)
+        let precioProductoCompra = productoACargar.push(catalogoProductos[1].precioProducto)
+        let unidadesCompra = productoACargar.push(unidadesFormulario)
+        
         let productoARegistrar = new ProductoCompra(
-            agregarId,
-            agregarNombre,
-            agregarPrecio,
-            agregarUnidades,
-            total
+            idCompra,
+            nombreCompra,
+            precioProductoCompra,
+            unidadesCompra,
         )
         productoACargar.push(productoARegistrar)
     }
     else if (idDatoFormulario == 3) {
-        let agregarId = productoACargar.push(idDatoFormulario)
-        let agregarNombre = productoACargar.push(catalogoProductos[2].nombre)
-        let agregarPrecio = productoACargar.push(catalogoProductos[2].precioProducto)
-        let agregarUnidades = productoACargar.push(unidadesFormulario)
-        let total = productoACargar.push(agregarPrecio * agregarUnidades)
+        let idCompra = productoACargar.push(idDatoFormulario)
+        let nombreCompra = productoACargar.push(catalogoProductos[2].nombre)
+        let precioProductoCompra = productoACargar.push(catalogoProductos[2].precioProducto)
+        let unidadesFormulario = productoACargar.push(unidadesFormulario)
+        
         let productoARegistrar = new ProductoCompra(
-            agregarId,
-            agregarNombre,
-            agregarPrecio,
-            agregarUnidades,
-            total
+            idCompra,
+            nombreCompra,
+            precioProductoCompra,
+            unidadesCompra,
         )
         productoACargar.push(productoARegistrar)
     }
