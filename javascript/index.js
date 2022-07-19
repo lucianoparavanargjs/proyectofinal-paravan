@@ -27,6 +27,7 @@ catalogoProductos.push(producto2)
 catalogoProductos.push(producto3)
 
 const productos = []
+const totalFinalProductos = []
 let productoACargar =[]
 let tabla
 let textoTotalCompra
@@ -36,8 +37,8 @@ function inicializarElementos() {
     textoTotalCompra = document.querySelector("#totalCompra span")
 }
 
-let idDatoFormulario = document.getElementById("inputIdProducto").value
-let unidadesFormulario = document.getElementById("inputUnidades").value
+let idDatoFormulario = inputIdProducto.value
+let unidadesFormulario = inputUnidades.value
 
 let formulario = document.getElementById("formulario")
 
@@ -59,6 +60,7 @@ function agregarAlCarrito(event) {
             unidadesCompra,
         )
         productoACargar.push(productoARegistrar)
+        
     }
     else if (idDatoFormulario == 2) {
         let idCompra = productoACargar.push(idDatoFormulario)
@@ -73,6 +75,7 @@ function agregarAlCarrito(event) {
             unidadesCompra,
         )
         productoACargar.push(productoARegistrar)
+                
     }
     else if (idDatoFormulario == 3) {
         let idCompra = productoACargar.push(idDatoFormulario)
@@ -87,12 +90,14 @@ function agregarAlCarrito(event) {
             unidadesCompra,
         )
         productoACargar.push(productoARegistrar)
+        
     }
+    totalFinalProductos.push(precioProductoCompra*unidadesCompra)
+    formulario.reset()
 }
 
 
 function agregarProductosTabla() {
-    
     productoACargar.forEach( (producto) => {
         let filaTabla = document.createElement("tr")
         filaTabla.innerHTML = `
@@ -100,15 +105,14 @@ function agregarProductosTabla() {
         <td> ${productoACargar[1]}</td>
         <td> ${productoACargar[2]}</td>
         <td> ${productoACargar[3]}</td>
-        <td> ${productoACargar[3]}</td>
-
+        <td> ${productoACargar[2]*productoACargar[3]}</td>
         `
         tabla.tBodies[0].append(filaTabla)
     })
 }
 
 function calcularTotales() {
-
+    
 }
 
 function costoEnvio() {
