@@ -8,11 +8,12 @@ class Producto {
 }
 
 class ProductoCompra {
-    constructor(idCompra, nombreCompra, precioProductoCompra, unidadesCompra){
+    constructor(idCompra, nombreCompra, precioProductoCompra, unidadesCompra, precioTotalCompra){
         this.idCompra = idCompra
         this.nombreCompra = nombreCompra
         this.precioProductoCompra = precioProductoCompra
         this.unidadesCompra = unidadesCompra
+        this.precioTotalCompra = precioTotalCompra
     }
 }
 
@@ -28,105 +29,131 @@ catalogoProductos.push(producto3)
 
 const productos = []
 const totalFinalProductos = []
-let productoACargar =[]
-let tabla
-let textoTotalCompra
+let productoACargar 
 
-function inicializarElementos() {
-    tabla = document.getElementById("tabla-productos")
-    textoTotalCompra = document.querySelector("#totalCompra span")
-}
+let tabla = document.getElementById("tabla-productos")
+let textoTotalCompra = document.querySelector("#totalCompra span")
 
-let idDatoFormulario = inputIdProducto.value
-let unidadesFormulario = inputUnidades.value
 
+let idDatoFormulario = document.getElementById("inputIdProducto")
+let unidadesFormulario = document.getElementById("inputUnidades")
 let formulario = document.getElementById("formulario")
 
-formulario.onsubmit = (event) => agregarAlCarrito(event)
-
-function agregarAlCarrito(event) {
-    event.preventDefault()
-
-    if (idDatoFormulario == 1) {
-        let idCompra = productoACargar.push(idDatoFormulario)
-        let nombreCompra = productoACargar.push(catalogoProductos[0].nombre)
-        let precioProductoCompra = productoACargar.push(catalogoProductos[0].precioProducto)
-        let unidadesCompra = productoACargar.push(unidadesFormulario)
-        
-        let productoARegistrar = new ProductoCompra(
-            idCompra,
-            nombreCompra,
-            precioProductoCompra,
-            unidadesCompra,
-        )
-        productoACargar.push(productoARegistrar)
-        
-    }
-    else if (idDatoFormulario == 2) {
-        let idCompra = productoACargar.push(idDatoFormulario)
-        let nombreCompra = productoACargar.push(catalogoProductos[1].nombre)
-        let precioProductoCompra = productoACargar.push(catalogoProductos[1].precioProducto)
-        let unidadesCompra = productoACargar.push(unidadesFormulario)
-        
-        let productoARegistrar = new ProductoCompra(
-            idCompra,
-            nombreCompra,
-            precioProductoCompra,
-            unidadesCompra,
-        )
-        productoACargar.push(productoARegistrar)
-                
-    }
-    else if (idDatoFormulario == 3) {
-        let idCompra = productoACargar.push(idDatoFormulario)
-        let nombreCompra = productoACargar.push(catalogoProductos[2].nombre)
-        let precioProductoCompra = productoACargar.push(catalogoProductos[2].precioProducto)
-        let unidadesFormulario = productoACargar.push(unidadesFormulario)
-        
-        let productoARegistrar = new ProductoCompra(
-            idCompra,
-            nombreCompra,
-            precioProductoCompra,
-            unidadesCompra,
-        )
-        productoACargar.push(productoARegistrar)
-        
-    }
-    totalFinalProductos.push(precioProductoCompra*unidadesCompra)
-    formulario.reset()
+function inicializarEventos() {
+formulario.addEventListener("submit", agregarAlCarrito)
+formulario.addEventListener("submit", agregarProductosTabla)
 }
 
+function agregarAlCarrito(event) {
+    
+    event.preventDefault()
+    const idBuscado = parseInt(idDatoFormulario.value)
+    const productoBuscado = catalogoProductos.find(producto => producto.id === idBuscado)
+    let nombreBuscado = productoBuscado.nombre
+    let precioBuscado = productoBuscado.precioProducto
+    let unidadesBuscado = parseInt(unidadesFormulario.value)
+    let precioTotalProducto = precioBuscado*unidadesBuscado
+    productoACargar = new ProductoCompra(idBuscado, nombreBuscado, precioBuscado, unidadesBuscado, precioTotalProducto)
+    productos.push(productoACargar)
+    formulario.reset()
+    limpiarTabla()
+    agregarProductosTabla()
+}
 
 function agregarProductosTabla() {
-    productoACargar.forEach( (producto) => {
+    productos.forEach( (producto) => {
         let filaTabla = document.createElement("tr")
         filaTabla.innerHTML = `
-        <td> ${productoACargar[0]}</td>
-        <td> ${productoACargar[1]}</td>
-        <td> ${productoACargar[2]}</td>
-        <td> ${productoACargar[3]}</td>
-        <td> ${productoACargar[2]*productoACargar[3]}</td>
+        <td> ${productoACargar.idCompra}</td>
+        <td> ${productoACargar.nombreCompra}</td>
+        <td> ${productoACargar.precioProductoCompra}</td>
+        <td> ${productoACargar.unidadesCompra}</td>
+        <td> ${productoACargar.precioTotalCompra}</td>
         `
         tabla.tBodies[0].append(filaTabla)
     })
 }
 
-function calcularTotales() {
+function limpiarTabla() {
+    while(tabla.rows.lenght>1){
+        tabla.deleteRow(1)
+    }
+}
+
+// inicializarElementos()
+inicializarEventos()
+// }
+
+// main()
+
+// main()
+
+    // console.log(productoBuscado)
+    // if (idDatoFormulario == 1) {
+    //     let idCompra = productoACargar.push(idDatoFormulario)
+    //     let nombreCompra = productoACargar.push(catalogoProductos[0].nombre)
+    //     let precioProductoCompra = productoACargar.push(catalogoProductos[0].precioProducto)
+    //     let unidadesCompra = productoACargar.push(unidadesFormulario)
+        
+    //     let productoARegistrar = new ProductoCompra(
+    //         idCompra,
+    //         nombreCompra,
+    //         precioProductoCompra,
+    //         unidadesCompra,
+    //     )
+    //     productoACargar.push(productoARegistrar)
+        
+    // }
+    // else if (idDatoFormulario == 2) {
+    //     let idCompra = productoACargar.push(idDatoFormulario)
+    //     let nombreCompra = productoACargar.push(catalogoProductos[1].nombre)
+    //     let precioProductoCompra = productoACargar.push(catalogoProductos[1].precioProducto)
+    //     let unidadesCompra = productoACargar.push(unidadesFormulario)
+        
+    //     let productoARegistrar = new ProductoCompra(
+    //         idCompra,
+    //         nombreCompra,
+    //         precioProductoCompra,
+    //         unidadesCompra,
+    //     )
+    //     productoACargar.push(productoARegistrar)
+                
+    // }
+    // else if (idDatoFormulario == 3) {
+    //     const prueba = catalogoProductos.find(producto => producto.id === 3)
+    //     console.log(prueba)
+    //     // let idCompra = productoACargar.push(idDatoFormulario)
+    //     // let nombreCompra = productoACargar.push(catalogoProductos[2].nombre)
+    //     // let precioProductoCompra = productoACargar.push(catalogoProductos[2].precioProducto)
+    //     // let unidadesFormulario = productoACargar.push(unidadesFormulario)
+        
+    //     // let productoARegistrar = new ProductoCompra(
+    //     //     idCompra,
+    //     //     nombreCompra,
+    //     //     precioProductoCompra,
+    //     //     unidadesCompra,
+    //     // )
+    //     // productoACargar.push(productoARegistrar)
+        
+    // }
+    // console.log(totalFinalProductos)
+    // totalFinalProductos.push(precioProductoCompra*unidadesCompra)
+    // formulario.reset()
+
+
+
+
+
+// function calcularTotales() {
     
-}
+// }
 
-function costoEnvio() {
-    if (totalFinal > 10000){
-        let mensajeEnvio = "Envío gratis"
-    }
-    else {
-        let mensajeEnvio = "Deberá abonar $800 de envío"
-    }
-}
-function main() {
-    inicializarElementos()
-    agregarAlCarrito()
-    agregarProductosTabla()
-}
+// function costoEnvio() {
+//     if (totalFinal > 10000){
+//         let mensajeEnvio = "Envío gratis"
+//     }
+//     else {
+//         let mensajeEnvio = "Deberá abonar $800 de envío"
+//     }
+// }
 
-main()
