@@ -28,6 +28,7 @@ catalogoProductos.push(producto2)
 catalogoProductos.push(producto3)
 
 const productos = []
+const productosTemporal = []
 const totalFinalProductos = []
 let productoACargar 
 
@@ -58,6 +59,7 @@ function agregarAlCarrito(event) {
     formulario.reset()
     limpiarTabla()
     agregarProductosTabla()
+    console.log(productos)
 }
 
 function agregarProductosTabla() {
