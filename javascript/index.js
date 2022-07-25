@@ -19,9 +19,9 @@ class ProductoCompra {
 
 
 let catalogoProductos = []
-let producto1 = new Producto(1, "producto1", 20000, "imagenProducto1.jpg")
-let producto2 = new Producto(2, "producto2", 21000, "imagenProducto2.jpg")
-let producto3 = new Producto(3, "producto3", 24000, "imagenProducto3.jpg")
+let producto1 = new Producto(1, "producto1", 10000, "./multimedia/productos/producto1.jpg")
+let producto2 = new Producto(2, "producto2", 20000, "./multimedia/productos/producto2.jpg")
+let producto3 = new Producto(3, "producto3", 50000, "./multimedia/productos/producto3.jpg")
 
 catalogoProductos.push(producto1)
 catalogoProductos.push(producto2)
@@ -40,10 +40,46 @@ let idDatoFormulario = document.getElementById("inputIdProducto")
 let unidadesFormulario = document.getElementById("inputUnidades")
 let formulario = document.getElementById("formulario")
 
+let cardsDiv = document.querySelector("#cards")
+
 function inicializarEventos() {
 formulario.addEventListener("submit", agregarAlCarrito)
-formulario.addEventListener("submit", agregarProductosTabla)
 }
+
+catalogoProductos.forEach(producto => {
+    cardsDiv.innerHTML += renderCard(producto)
+})
+
+function renderCard(producto) {
+    let cardRendered = `
+    <div class="card m-3" style="width: 18rem;">
+        <img class="card-img-top" src="${producto.imagen}" alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title">${producto.id}.  ${producto.nombre}</h5>
+            <p class="card-text">$${producto.precioProducto}</p>
+            <a href="#" class="btn btn-primary botonDeCompra" id="${producto.id}">Agregar al carrito</a>
+        </div>
+    </div>
+    `
+    return cardRendered
+}
+
+function calcularTotal(){
+    let total = 0
+    for(let i = 0; i < productos.lenght; i++){
+        total = total + productos[i].precioTotalProducto
+    }
+    return total
+}
+
+let botones = document.querySelectorAll(".botonDeCompra")
+let arrayDeBotones = Array.from(botones)
+arrayDeBotones.forEach(boton => {
+    boton.addEventListener("click", (e) => {
+        let productoSeleccionado = catalogoProductos.find(producto => producto.id === e.target.id)
+
+    })
+})
 
 function agregarAlCarrito(event) {
     
@@ -66,96 +102,26 @@ function agregarProductosTabla() {
     productos.forEach( (producto) => {
         let filaTabla = document.createElement("tr")
         filaTabla.innerHTML = `
-        <td> ${productoACargar.idCompra}</td>
-        <td> ${productoACargar.nombreCompra}</td>
-        <td> ${productoACargar.precioProductoCompra}</td>
-        <td> ${productoACargar.unidadesCompra}</td>
-        <td> ${productoACargar.precioTotalCompra}</td>
+        <td> ${producto.idCompra}</td>
+        <td> ${producto.nombreCompra}</td>
+        <td> ${producto.precioProductoCompra}</td>
+        <td> ${producto.unidadesCompra}</td>
+        <td> ${producto.precioTotalCompra}</td>
         `
         tabla.tBodies[0].append(filaTabla)
     })
 }
 
 function limpiarTabla() {
-    while(tabla.rows.lenght>1){
+    while(tabla.rows.length>1){
         tabla.deleteRow(1)
     }
 }
 
-// inicializarElementos()
-inicializarEventos()
-// }
+function main(){
+    // inicializarElementos()
+    inicializarEventos()
+}
 
-// main()
-
-// main()
-
-    // console.log(productoBuscado)
-    // if (idDatoFormulario == 1) {
-    //     let idCompra = productoACargar.push(idDatoFormulario)
-    //     let nombreCompra = productoACargar.push(catalogoProductos[0].nombre)
-    //     let precioProductoCompra = productoACargar.push(catalogoProductos[0].precioProducto)
-    //     let unidadesCompra = productoACargar.push(unidadesFormulario)
-        
-    //     let productoARegistrar = new ProductoCompra(
-    //         idCompra,
-    //         nombreCompra,
-    //         precioProductoCompra,
-    //         unidadesCompra,
-    //     )
-    //     productoACargar.push(productoARegistrar)
-        
-    // }
-    // else if (idDatoFormulario == 2) {
-    //     let idCompra = productoACargar.push(idDatoFormulario)
-    //     let nombreCompra = productoACargar.push(catalogoProductos[1].nombre)
-    //     let precioProductoCompra = productoACargar.push(catalogoProductos[1].precioProducto)
-    //     let unidadesCompra = productoACargar.push(unidadesFormulario)
-        
-    //     let productoARegistrar = new ProductoCompra(
-    //         idCompra,
-    //         nombreCompra,
-    //         precioProductoCompra,
-    //         unidadesCompra,
-    //     )
-    //     productoACargar.push(productoARegistrar)
-                
-    // }
-    // else if (idDatoFormulario == 3) {
-    //     const prueba = catalogoProductos.find(producto => producto.id === 3)
-    //     console.log(prueba)
-    //     // let idCompra = productoACargar.push(idDatoFormulario)
-    //     // let nombreCompra = productoACargar.push(catalogoProductos[2].nombre)
-    //     // let precioProductoCompra = productoACargar.push(catalogoProductos[2].precioProducto)
-    //     // let unidadesFormulario = productoACargar.push(unidadesFormulario)
-        
-    //     // let productoARegistrar = new ProductoCompra(
-    //     //     idCompra,
-    //     //     nombreCompra,
-    //     //     precioProductoCompra,
-    //     //     unidadesCompra,
-    //     // )
-    //     // productoACargar.push(productoARegistrar)
-        
-    // }
-    // console.log(totalFinalProductos)
-    // totalFinalProductos.push(precioProductoCompra*unidadesCompra)
-    // formulario.reset()
-
-
-
-
-
-// function calcularTotales() {
-    
-// }
-
-// function costoEnvio() {
-//     if (totalFinal > 10000){
-//         let mensajeEnvio = "Envío gratis"
-//     }
-//     else {
-//         let mensajeEnvio = "Deberá abonar $800 de envío"
-//     }
-// }
+main()
 
