@@ -63,14 +63,16 @@ function renderCard(producto) {
     `
     return cardRendered
 }
+console.log(totalFinalProductos)
 
 function calcularTotal(){
-    let total = 0
-    for(let i = 0; i < productos.lenght; i++){
-        total = total + productos[i].precioTotalProducto
-    }
-    return total
+    const totalFinal = totalFinalProductos.reduce((acumulador, elemento)=> acumulador + elemento, 0)
+    console.log(totalFinal) 
+    
+    textoTotalCompra.innerHTML = totalFinal
 }
+
+
 
 let botones = document.querySelectorAll(".botonDeCompra")
 let arrayDeBotones = Array.from(botones)
@@ -92,10 +94,11 @@ function agregarAlCarrito(event) {
     let precioTotalProducto = precioBuscado*unidadesBuscado
     productoACargar = new ProductoCompra(idBuscado, nombreBuscado, precioBuscado, unidadesBuscado, precioTotalProducto)
     productos.push(productoACargar)
+    totalFinalProductos.push(precioTotalProducto)
+    calcularTotal()
     formulario.reset()
     limpiarTabla()
     agregarProductosTabla()
-    console.log(productos)
 }
 
 function agregarProductosTabla() {
@@ -124,4 +127,7 @@ function main(){
 }
 
 main()
+
+emailFormulario = document.getElementById("#emailFormulario")
+localStorage.setItem("email", emailFormulario.value)
 
