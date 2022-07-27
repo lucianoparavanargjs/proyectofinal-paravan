@@ -73,9 +73,6 @@ function calcularTotal(){
 }
 
 
-
-
-
 let botones = document.querySelectorAll(".botonDeCompra")
 let arrayDeBotones = Array.from(botones)
 arrayDeBotones.forEach(boton => {
@@ -100,8 +97,8 @@ function agregarAlCarrito(event) {
     limpiarTabla()
     agregarProductosTabla()
     almacenarProductosSessionStorage()
-    almacenarTotalProductosSS()
     totalFinalProductos.push(precioTotalProducto)
+    almacenarTotalProductosSS()
     calcularTotal()
 }
 
@@ -128,6 +125,8 @@ function obtenerTotalProductosSS(){
     if (totalesProductos !== null) {
         totalFinalProductos = JSON.parse(totalesProductos)
     }
+    let totalFinal = totalFinalProductos.reduce((acumulador, elemento)=> acumulador + elemento, 0)
+    textoTotalCompra.innerHTML = totalFinal
 }
 
 function almacenarProductosSessionStorage() {
