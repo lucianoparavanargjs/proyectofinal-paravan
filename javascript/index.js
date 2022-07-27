@@ -19,17 +19,18 @@ class ProductoCompra {
 
 
 let catalogoProductos = []
-let producto1 = new Producto(1, "producto1", 10000, "./multimedia/productos/producto1.jpg")
-let producto2 = new Producto(2, "producto2", 20000, "./multimedia/productos/producto2.jpg")
-let producto3 = new Producto(3, "producto3", 50000, "./multimedia/productos/producto3.jpg")
+let producto1 = new Producto(1, "JW Double Black", 10000, "./multimedia/productos/producto1.jpg")
+let producto2 = new Producto(2, "JW Gold", 20000, "./multimedia/productos/producto2.jpg")
+let producto3 = new Producto(3, "JW Blue", 50000, "./multimedia/productos/producto3.jpg")
 
 catalogoProductos.push(producto1)
 catalogoProductos.push(producto2)
 catalogoProductos.push(producto3)
 
-const productos = []
+const datosClienteFacturacion = []
+let productos = []
 const productosTemporal = []
-const totalFinalProductos = []
+let totalFinalProductos = []
 let productoACargar 
 
 let tabla = document.getElementById("tabla-productos")
@@ -55,22 +56,23 @@ function renderCard(producto) {
     <div class="card m-3" style="width: 18rem;">
         <img class="card-img-top" src="${producto.imagen}" alt="Card image cap">
         <div class="card-body">
-            <h5 class="card-title">${producto.id}.  ${producto.nombre}</h5>
+            <h5 class="card-title">id: ${producto.id} <br> ${producto.nombre}</h5>
             <p class="card-text">$${producto.precioProducto}</p>
+
             <a href="#" class="btn btn-primary botonDeCompra" id="${producto.id}">Agregar al carrito</a>
         </div>
     </div>
     `
     return cardRendered
 }
-console.log(totalFinalProductos)
+
 
 function calcularTotal(){
-    const totalFinal = totalFinalProductos.reduce((acumulador, elemento)=> acumulador + elemento, 0)
-    console.log(totalFinal) 
-    
+    let totalFinal = totalFinalProductos.reduce((acumulador, elemento)=> acumulador + elemento, 0)
     textoTotalCompra.innerHTML = totalFinal
 }
+
+
 
 
 
@@ -94,11 +96,13 @@ function agregarAlCarrito(event) {
     let precioTotalProducto = precioBuscado*unidadesBuscado
     productoACargar = new ProductoCompra(idBuscado, nombreBuscado, precioBuscado, unidadesBuscado, precioTotalProducto)
     productos.push(productoACargar)
-    totalFinalProductos.push(precioTotalProducto)
-    calcularTotal()
     formulario.reset()
     limpiarTabla()
     agregarProductosTabla()
+    almacenarProductosSessionStorage()
+    almacenarTotalProductosSS()
+    totalFinalProductos.push(precioTotalProducto)
+    calcularTotal()
 }
 
 function agregarProductosTabla() {
@@ -115,6 +119,28 @@ function agregarProductosTabla() {
     })
 }
 
+function almacenarTotalProductosSS(){
+    sessionStorage.setItem("totalProductos", JSON.stringify(totalFinalProductos))
+}
+
+function obtenerTotalProductosSS(){
+    let totalesProductos = sessionStorage.getItem("totalProductos")
+    if (totalesProductos !== null) {
+        totalFinalProductos = JSON.parse(totalesProductos)
+    }
+}
+
+function almacenarProductosSessionStorage() {
+    sessionStorage.setItem("listaProductosCarrito", JSON.stringify(productos))
+}
+
+function obtenerProductosSessionStorage() {
+    let productosEnCarrito = sessionStorage.getItem("listaProductosCarrito")
+    if (productosEnCarrito !== null) {
+        productos = JSON.parse(productosEnCarrito)
+    }
+}
+
 function limpiarTabla() {
     while(tabla.rows.length>1){
         tabla.deleteRow(1)
@@ -124,10 +150,10 @@ function limpiarTabla() {
 function main(){
     // inicializarElementos()
     inicializarEventos()
+    obtenerProductosSessionStorage()
+    obtenerTotalProductosSS()
+    agregarProductosTabla()
 }
 
 main()
-
-emailFormulario = document.getElementById("#emailFormulario")
-localStorage.setItem("email", emailFormulario.value)
 
